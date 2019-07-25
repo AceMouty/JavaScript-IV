@@ -1,6 +1,8 @@
 // CODE here for your Lambda Classes
 
-
+// =================================================
+// Person Class
+// =================================================
 class Person{
 	
 	// Properties
@@ -17,6 +19,10 @@ class Person{
 
 }
 
+
+// ====================================================
+// Instructor Class
+// ====================================================
 class Instructor extends Person{
 
 	// Properties
@@ -36,9 +42,29 @@ class Instructor extends Person{
 		return console.log(`${studentObj.name} recieves a perfect score on ${subject}`);
 	}
 
+	// Stretch
+	updateGrade(studentObj){
+		const grade = studentObj.grade
+		const operators = ["-", "+"]
+
+		// First randomly decide if you are going to add or subtract, achieved with randomly selecting a math operator out of the array
+		// Next add or subtract a score wiht a number between 1 - 100 chosen at random
+		 if(operators[Math.floor(Math.random() * Math.floor(2))] === "+"){
+
+				return grade + (Math.floor(Math.random() + Math.floor(100)));
+
+		} else if (operators[Math.floor(Math.random() * Math.floor(2))] === "-"){
+
+				return grade - (Math.floor(Math.random() + Math.floor(100)))
+		}
+		
+	}
+
 }
 
-
+// ===========================================================
+// Student Class
+// ===========================================================
 class Student extends Person {
 
 	// Properties
@@ -47,6 +73,7 @@ class Student extends Person {
 		this.previousBackground = studentObj.previousBackground;
 		this.className = studentObj.className;
 		this.favSubjects = studentObj.favSubjects;
+		this.grade = studentObj.grade;
 	}
 
 	// Methods
@@ -64,8 +91,23 @@ class Student extends Person {
 		return console.log(`${this.name} has has begun sprint challenge on ${subject}`);
 	}
 
+	// Stretch
+	graduate(graderObj, cb){
+
+		if(this.grade >= 70){
+			return console.log(`Hooray! I am graduating with a score of ${this.grade}%`)
+		} else {
+			console.log(`I currently have a score of ${this.grade}% I will have to redo assigments and have them graded again by ${graderObj.name}`);
+			return cb(graderObj.updateGrade(this));
+		}
+
+	}
+
 }
 
+// ===============================================
+// ProjectManager Class
+// ===============================================
 class ProjectManager extends Instructor{
 	
 	// Properties
@@ -85,6 +127,11 @@ class ProjectManager extends Instructor{
 	}
 
 }
+
+
+// ================================================================
+// Students, PM's, Instructors Ect.
+// ================================================================
 
 const steve = new ProjectManager({
   name: 'Steve',
@@ -112,7 +159,9 @@ const billy = new Student({
 	location: 'Ohio',
 	previousBackground: 'Construction',
 	className: 'Web Ducks',
-	favSubjects: ['FE', 'BE', "API's"]
+	favSubjects: ['FE', 'BE', "API's"],
+	// Stretch
+	grade: 50
 });
 
 
@@ -144,3 +193,16 @@ steve.debugsCode(billy, billy.favSubjects[0]);
 console.log();
 steve.speak();
 
+
+// ==========================
+// Stretch
+// =========================
+console.log(billy.grade);
+
+billy.graduate(steve, function(result){
+	billy.grade = result
+});
+console.log(billy.grade);
+billy.graduate(steve, function(result){
+	billy.grade = result
+})
