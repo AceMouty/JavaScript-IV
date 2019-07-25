@@ -44,19 +44,42 @@ class Instructor extends Person{
 
 	// Stretch
 	updateGrade(studentObj){
-		const grade = studentObj.grade
+		
 		const operators = ["-", "+"]
+		let grade = studentObj.grade
+		const randomNumber = Math.floor(Math.random() * 101);
 
 		// First randomly decide if you are going to add or subtract, achieved with randomly selecting a math operator out of the array
 		// Next add or subtract a score wiht a number between 1 - 100 chosen at random
-		 if(operators[Math.floor(Math.random() * Math.floor(2))] === "+"){
+		// 	if(grade >= 70){
+		// 		 return studentObj.graduate();
 
-				return grade + (Math.floor(Math.random() + Math.floor(100)));
+		// 	 }else if(operators[Math.floor(Math.random() * Math.floor(2))] === "+"){
 
-		} else if (operators[Math.floor(Math.random() * Math.floor(2))] === "-"){
+		// 		return grade + (Math.floor(Math.random() * Math.floor(100)));
 
-				return grade - (Math.floor(Math.random() + Math.floor(100)))
+		// } else if (operators[Math.floor(Math.random() * Math.floor(2))] === "-"){
+
+		// 		return grade - (Math.floor(Math.random() * Math.floor(100)))
+		// }
+
+		while(grade < 70 || grade > 100){
+			const operator = Math.floor(Math.random() * 2);
+
+			if(operators[operator] === "+"){
+
+				 grade += randomNumber;
+		
+			} else if (operators[operator] === "-"){
+		
+				grade -= randomNumber
+
+			}
+			
+
 		}
+
+		return console.log(`${studentObj.name} can now graduate with a passing score of ${grade}`);
 		
 	}
 
@@ -199,10 +222,10 @@ steve.speak();
 // =========================
 console.log(billy.grade);
 
-billy.graduate(steve, function(result){
-	billy.grade = result
+billy.graduate(steve, function(grade){
+	billy.grade = grade
 });
-console.log(billy.grade);
-billy.graduate(steve, function(result){
-	billy.grade = result
-})
+
+// billy.graduate(steve, function(result){
+// 	billy.grade = result
+// })
