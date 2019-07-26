@@ -55,15 +55,18 @@ class Instructor extends Person{
 
 			if(grade < 0 || grade > 100){
 
-				console.log(grade = studentObj.grade);
+				// console.log(grade = studentObj.grade);
+				grade = studentObj.grade;
 
 			} else if(operators[operator] === "+"){
 
-				console.log(grade += randomNumber);
+				// console.log(grade += randomNumber);
+				grade += randomNumber;
 		
 			} else if (operators[operator] === "-"){
 		
-				console.log(grade -= randomNumber)
+				// console.log(grade -= randomNumber)
+				grade -= randomNumber
 
 			}
 			
@@ -111,7 +114,7 @@ class Student extends Person {
 			return console.log(`Hooray! I am graduating with a score of ${this.grade}%`)
 		} else {
 			console.log(`I currently have a score of ${this.grade}% I will have to redo assigments and have them graded again by ${graderObj.name}`);
-			return cb(graderObj.updateGrade(this));
+			return cb(this);
 		}
 
 	}
@@ -211,6 +214,4 @@ steve.speak();
 // Stretch
 // =========================
 console.log(billy.grade);
-billy.graduate(steve, function(grade){
-	billy.grade = grade
-});
+billy.graduate(steve, steve.updateGrade);
